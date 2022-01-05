@@ -19,7 +19,7 @@ $ python3
 ```
 >>from CNVMatrixGenerator.scripts import CNVMatrixGenerator as scna
 >>file_type = "BATTENBERG"
->>input_file = "./example_input/" #example input file for testing
+>>input_file = "./example_input/PD47076a.battenberg.subclones.txt" #example input file for testing
 >>output_path = "."
 >>project = "Breast_Cancer"
 >>scna.generateCNVMatrix(file_type, input_file, project, output_path)
