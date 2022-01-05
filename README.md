@@ -19,8 +19,8 @@ $ python3
 ```
 >>from CNVMatrixGenerator.scripts import CNVMatrixGenerator as scna
 >>file_type = "BATTENBERG"
->>input_file = "./SigProfilerMatrixGenerator/references/CNV/all.breast.ascat.summary.sample.tsv" #example input file for testing
->>output_path = "./SigProfilerMatrixGenerator/references/CNV/"
+>>input_file = "./example_input/" #example input file for testing
+>>output_path = "."
 >>project = "Breast_Cancer"
 >>scna.generateCNVMatrix(file_type, input_file, project, output_path)
 
