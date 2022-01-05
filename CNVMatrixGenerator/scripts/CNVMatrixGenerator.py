@@ -317,7 +317,7 @@ def generateCNVMatrix(file_type, input_file, project, output_path):
             for i,j in enumerate(subclonal_matrix.columns):
                 clonal_matrix.at[subclonal_matrix.index.to_list()[k], j] = subclonal_matrix.iat[k, i] + clonal_matrix.loc[subclonal_matrix.index.to_list()[k], j]
         clonal_matrix.to_csv(output_path + file_type + '.CNV48.matrix.tsv', sep='\t')
-    elif file_type = "VCF":
+    elif file_type == "VCF":
         #convert vcf to dataframe with necessary info
         vcf_file = vcf.Reader(open(file, 'r'))
         sample_name=file.split(".vcf")[0]
