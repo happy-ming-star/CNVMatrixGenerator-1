@@ -2,7 +2,9 @@ import pandas as pd
 import numpy as np
 import os
 import shutil
-from plotCNV import plotCNV
+from .plotCNV import plotCNV
+import warnings
+warnings.filterwarnings("ignore")
 
 def generateCNVMatrix(file_type, input_file, project, output_path):
 
@@ -124,7 +126,6 @@ def generateCNVMatrix(file_type, input_file, project, output_path):
                     CN_class.append("9+")
         else:
             pass
-
 
         df['CN_class'] = CN_class
 
@@ -308,8 +309,8 @@ def generateCNVMatrix(file_type, input_file, project, output_path):
         clonal_df = clonal_df.dropna()
         subclonal_df = subclonal_df.dropna()
         subclonal_df = subclonal_df.rename(columns={"nMaj2_A": "nMaj1_A", "nMin2_A": "nMin1_A"})
-        clonal_matrix = annotateSegFile(clonal_df, file_type, project, output_path)
-        subclonal_matrix = annotateSegFile(subclonal_df, file_type, project, output_path)
+        clonal_matrix = annotateSegFile(clonal_df, file_type, project, output_path)[0]
+        subclonal_matrix = annotateSegFile(subclonal_df, file_type, project, output_path)[0]
         subclonal_matrix = subclonal_matrix.set_index(subclonal_matrix.columns[0])
         clonal_matrix = clonal_matrix.set_index(clonal_matrix.columns[0])
         #add subclonal events to matrix containing clonal events to produce a final matrix that accounts for all events(Clonal + Subclonal)
@@ -340,14 +341,15 @@ def generateCNVMatrix(file_type, input_file, project, output_path):
                 starts.append(record.POS)
                 ends.append(record.INFO.get('END'))
                 c.append(record.CHROM)
-        df = pd.Dataframe({"sample":samples, "chr":c, "startpos":starts , "endpos":ends, "nMajor"tcn:, "nMinor":lcn})
+        df = pd.Dataframe({"sample":samples, "chr":c, "startpos":starts , "endpos":ends, "nMajor":tcn:, "nMinor":lcn})
         nmf_matrix, annotated_df = annotateSegFile(df, "ASCAT", input_file, project, output_path)
     else:
         nmf_matrix, annotated_df = annotateSegFile(df, file_type, input_file, project, output_path)
     print("Saved matrix to " + output_dir + project + ".CNV48.matrix.tsv")
 
     print("Saved aggregate CNV48 plot to " + output_dir + project + '_CNV48_counts_aggregated' + '.pdf')
-    plotCNV(matrix_path, output_path, project, plot_type="pdf", percentage=False, aggregate=False, read_from_file=True, write_to_file=True):
+    matrix_path = output_dir + project + ".CNV48.matrix.tsv"
+    plotCNV(matrix_path, output_path, project, plot_type="pdf", percentage=False, aggregate=False, read_from_file=True, write_to_file=True)
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
