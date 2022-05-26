@@ -341,7 +341,7 @@ def generateCNVMatrix(file_type, input_file, project, output_path):
                 starts.append(record.POS)
                 ends.append(record.INFO.get('END'))
                 c.append(record.CHROM)
-        df = pd.Dataframe({"sample":samples, "chr":c, "startpos":starts , "endpos":ends, "nMajor":tcn:, "nMinor":lcn})
+        df = pd.Dataframe({"sample":samples, "chr":c, "startpos":starts, "endpos":ends, "nMajor":tcn, "nMinor":lcn})
         nmf_matrix, annotated_df = annotateSegFile(df, "ASCAT", input_file, project, output_path)
     else:
         nmf_matrix, annotated_df = annotateSegFile(df, file_type, input_file, project, output_path)
